@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const app = require("./src/app");
+const app = require("./backend/src/app");
 
 const port = parseInt(process.env.APP_PORT ?? "6001", 10);
 
