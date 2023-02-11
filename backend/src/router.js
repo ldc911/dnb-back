@@ -10,6 +10,8 @@ const auth = require("./services/auth");
 
 // route login
 router.post("/logins", middleware.getUserByEmail, auth.verifyPassword);
+// route pour envoyer un token de mdp oublié dans le user, puis envoi de mail avec comme url l'url front de mdp oublié/:token
+router.put("/pwd", middleware.getUserByEmail /* envoi de mail*/);
 
 // routes user
 router.get("/users", userControllers.getUser);
