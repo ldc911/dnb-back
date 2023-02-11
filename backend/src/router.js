@@ -10,6 +10,7 @@ const auth = require("./services/auth");
 
 // route login
 router.post("/logins", middleware.getUserByEmail, auth.verifyPassword);
+router.put("");
 
 // routes user
 router.get("/users", userControllers.getUser);
