@@ -9,7 +9,7 @@ const middleware = require("./services/middleware");
 const auth = require("./services/auth");
 
 // route login
-router.post("/login", middleware.getUserByEmail, auth.verifyPassword);
+router.post("/logins", middleware.getUserByEmail, auth.verifyPassword);
 
 // routes user
 router.get("/users", userControllers.getUser);

@@ -4,19 +4,21 @@ const fs = require("fs");
 const mysql = require("mysql2/promise");
 
 const migrate = async () => {
-  const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
+  const { MYSQLHOST, MYSQLPORT, MYSQLUSER, MYSQLPASSWORD, MYSQLDATABASE } =
+    process.env;
 
   const connection = await mysql.createConnection({
-    host: DB_HOST,
-    port: DB_PORT,
-    user: DB_USER,
-    password: DB_PASSWORD,
+    host: MYSQLHOST,
+    port: MYSQLPORT,
+    user: MYSQLUSER,
+    password: MYSQLPASSWORD,
+    database: MYSQLDATABASE,
     multipleStatements: true,
   });
 
-  await connection.query(`drop database if exists ${DB_NAME}`);
-  await connection.query(`create database ${DB_NAME}`);
-  await connection.query(`use ${DB_NAME}`);
+  await connection.query(`drop database if exists ${MYSQLDATABASE}`);
+  await connection.query(`create database ${MYSQLDATABASE}`);
+  await connection.query(`use ${MYSQLDATABASE}`);
 
   const sql = fs.readFileSync("./database.sql", "utf8");
 
