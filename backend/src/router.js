@@ -26,6 +26,7 @@ router.put(
   userControllers.recoverPassword
 );
 
+
 // routes user
 router.get("/users", userControllers.getUser);
 router.get("/users/:id", userControllers.getOneUser);
