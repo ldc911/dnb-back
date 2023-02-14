@@ -9,8 +9,21 @@ const getUserByEmail = (req, res, next) => {
         [req.user] = result;
         next();
       } else {
-        res.sendStatus(401);
+        res.sendStatus(404);
       }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const addLostPwdToken = (req, res, next) => {
+  const user = req.body;
+  models.user
+    .updatePassword(user)
+    .then(() => {
+      next();
     })
     .catch((err) => {
       console.error(err);
@@ -20,4 +33,5 @@ const getUserByEmail = (req, res, next) => {
 
 module.exports = {
   getUserByEmail,
+  addLostPwdToken,
 };

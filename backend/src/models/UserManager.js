@@ -13,10 +13,11 @@ class UserManager extends AbstractManager {
     );
   }
 
-  update(user) {
+  updatePassword(user) {
+    const { token, email } = user;
     return this.database.query(
-      `update ${this.table} set title = ? where id = ?`,
-      [user.title, user.id]
+      `UPDATE ${this.table} SET token = ? WHERE email = ?`,
+      [token, email]
     );
   }
 
@@ -25,6 +26,22 @@ class UserManager extends AbstractManager {
     return this.database.query(`SELECT * FROM ${this.table} WHERE email = ?`, [
       email,
     ]);
+  }
+
+  findByToken(payload, token) {
+    const { email } = payload;
+    return this.database.query(
+      `SELECT email FROM ${this.table} WHERE token =? AND email =?`,
+      [token, email]
+    );
+  }
+
+  updateLostPassword(user) {
+    const { email, token, hashedPassword } = user;
+    return this.database.query(
+      `UPDATE ${this.table} SET hashedPassword = ?, token = NULL WHERE token = ? AND email = ?`,
+      [hashedPassword, token, email]
+    );
   }
 }
 

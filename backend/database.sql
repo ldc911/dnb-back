@@ -7,7 +7,8 @@ CREATE TABLE
         banPic VARCHAR(255),
         isMJ TINYINT(1),
         avatar VARCHAR(255),
-        hashedPassword VARCHAR(255) NOT NULL
+        hashedPassword VARCHAR(255) NOT NULL,
+        token TEXT
     ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
 
 INSERT INTO
