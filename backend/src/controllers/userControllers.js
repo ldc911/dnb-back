@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken");
 const models = require("../models");
 
 const getUser = (req, res) => {
@@ -78,10 +79,52 @@ const destroy = (req, res) => {
     });
 };
 
+const verifyToken = (req, res) => {
+  const { token } = req.params;
+  const plainToken = token.split("-").join(".");
+  const payload = jwt.decode(plainToken);
+
+  models.user
+    .findByToken(payload, plainToken)
+    .then(([result]) => {
+      if (result.length !== 0) {
+        res.status(200).json(result[0]);
+      } else {
+        res.status(401).json({ message: "Invalid token" });
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const recoverPassword = (req, res) => {
+  const { token } = req.body;
+  const payload = jwt.decode(token);
+  req.body.email = payload.email;
+  models.user
+    .updateLostPassword(req.body)
+    .then(([result]) => {
+      if (result.affectedRows === 1) {
+        res.status(200).json({ message: "Password updated" });
+      } else {
+        const message = "Utilisateur non trouvé";
+        res.status(404).json(message);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   getUser,
   getOneUser,
   edit,
   createUser,
   destroy,
+  verifyToken,
+  recoverPassword,
 };
