@@ -1,6 +1,6 @@
 CREATE TABLE
     user (
-        id int(11) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        id INT(11) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
         nickname varchar(255) NOT NULL,
         email VARCHAR(50) NOT NULL UNIQUE,
         bio TEXT,
@@ -8,6 +8,7 @@ CREATE TABLE
         isMJ TINYINT(1),
         avatar VARCHAR(255),
         hashedPassword VARCHAR(255) NOT NULL,
+        firstConnexion TINYINT(1),
         token TEXT
     ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
 
@@ -19,53 +20,77 @@ INSERT INTO
         banPic,
         isMJ,
         avatar,
-        hashedPassword
+        hashedPassword,
+        firstConnexion
     )
 VALUES (
-        "Hassess",
-        "test@test.com",
-        "Parcours d'Hassess,occultiste de niveau 5",
+        "Laurent",
+        "duclos.laurent@gmail.com",
+        "Notes persos pour les prochaines sessions",
         "https://picsum.photos/800/300",
         0,
-        "",
-        "$argon2id$v=19$m=65536,t=5,p=1$yEsnwBnRhv95PCKJN073jg$jn6I4sX3ZEej0emtoOqQkzU7GwZF3ujGVMXTWoCHCMg"
+        "https://picsum.photos/100/100",
+        "$argon2id$v=19$m=65536,t=5,p=1$yEsnwBnRhv95PCKJN073jg$jn6I4sX3ZEej0emtoOqQkzU7GwZF3ujGVMXTWoCHCMg",
+        1
     ), (
-        "Naälia et Tagadours",
+        "Eric",
         "test2@test.com",
-        "Parcours d'une drakédie et d'une féral, magelame et ensorceleuse de niveau 5",
+        "Notes persos pour les prochaines sessions",
         "https://picsum.photos/800/300",
         1,
-        "",
-        "$argon2id$v=19$m=65536,t=5,p=1$yEsnwBnRhv95PCKJN073jg$jn6I4sX3ZEej0emtoOqQkzU7GwZF3ujGVMXTWoCHCMg"
+        "https://picsum.photos/100/100",
+        "$argon2id$v=19$m=65536,t=5,p=1$yEsnwBnRhv95PCKJN073jg$jn6I4sX3ZEej0emtoOqQkzU7GwZF3ujGVMXTWoCHCMg",
+        1
     ), (
-        "Grodar",
+        "Sylvain",
         "test3@test.com",
-        "Parcours de Grodar, barbare de niveau 5",
+        "Notes persos pour les prochaines sessions",
         "https://picsum.photos/800/300",
         0,
-        "",
-        "$argon2id$v=19$m=65536,t=5,p=1$yEsnwBnRhv95PCKJN073jg$jn6I4sX3ZEej0emtoOqQkzU7GwZF3ujGVMXTWoCHCMg"
+        "https://picsum.photos/100/100",
+        "$argon2id$v=19$m=65536,t=5,p=1$yEsnwBnRhv95PCKJN073jg$jn6I4sX3ZEej0emtoOqQkzU7GwZF3ujGVMXTWoCHCMg",
+        1
     ), (
-        "Kaz et Smaja",
+        "Cécile",
         "test4@test.com",
-        "Parcours de Kaz et Smaja, assassin et prétresse de niveau 5",
+        "Notes persos pour les prochaines sessions",
         "https://picsum.photos/800/300",
         0,
         "",
-        "$argon2id$v=19$m=65536,t=5,p=1$yEsnwBnRhv95PCKJN073jg$jn6I4sX3ZEej0emtoOqQkzU7GwZF3ujGVMXTWoCHCMg"
+        "$argon2id$v=19$m=65536,t=5,p=1$yEsnwBnRhv95PCKJN073jg$jn6I4sX3ZEej0emtoOqQkzU7GwZF3ujGVMXTWoCHCMg",
+        1
     ), (
-        "Divin",
+        "Julien",
         "test5@test.com",
-        "Parcours de Divin, forgelier de niveau 5",
+        "Notes persos pour les prochaines sessions",
         "https://picsum.photos/800/300",
         1,
         "",
-        "$argon2id$v=19$m=65536,t=5,p=1$yEsnwBnRhv95PCKJN073jg$jn6I4sX3ZEej0emtoOqQkzU7GwZF3ujGVMXTWoCHCMg"
+        "$argon2id$v=19$m=65536,t=5,p=1$yEsnwBnRhv95PCKJN073jg$jn6I4sX3ZEej0emtoOqQkzU7GwZF3ujGVMXTWoCHCMg",
+        1
+    ), (
+        "Noémie",
+        "test6@test.com",
+        "Notes persos pour les prochaines sessions",
+        "https://picsum.photos/800/300",
+        0,
+        "",
+        "$argon2id$v=19$m=65536,t=5,p=1$yEsnwBnRhv95PCKJN073jg$jn6I4sX3ZEej0emtoOqQkzU7GwZF3ujGVMXTWoCHCMg",
+        1
+    ), (
+        "Seb",
+        "test7test.com",
+        "Notes persos pour les prochaines sessions",
+        "https://picsum.photos/800/300",
+        0,
+        "",
+        "$argon2id$v=19$m=65536,t=5,p=1$yEsnwBnRhv95PCKJN073jg$jn6I4sX3ZEej0emtoOqQkzU7GwZF3ujGVMXTWoCHCMg",
+        1
     );
 
 CREATE TABLE
     session (
-        id int(11) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        id INT(11) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
         dateSession VARCHAR(255) NOT NULL UNIQUE,
         duration VARCHAR(50) NOT NULL,
         localisation VARCHAR(255) NOT NULL,
@@ -122,3 +147,44 @@ VALUES (
         5,
         3
     );
+
+CREATE TABLE
+    perso (
+        id INT(11) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        idAuthor INT(11) UNSIGNED NOT NULL,
+        nickname VARCHAR(255),
+        lastname VARCHAR(255),
+        classe VARCHAR(255),
+        background TEXT,
+        avatar VARCHAR(255),
+        hauts_faits TEXT,
+        CONSTRAINT persoAuthor FOREIGN KEY (idAuthor) REFERENCES user (id) ON DELETE CASCADE
+    ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
+
+INSERT INTO
+    perso (
+        nickname,
+        lastname,
+        classe,
+        background,
+        avatar,
+        hauts_faits,
+        idAuthor
+    )
+VALUES (
+        "Hassess",
+        NULL,
+        "Occultiste",
+        "Hassess est issu d'une famille ayant passé un pacte avec la créature des profondeurs il y a des générations, engageant le linéage au bon vouloir de la monstruosité. Afin de rompre cette allégence de plusieurs siècles, Hassess s'est lancé sur les routes afin de trouver un moyen d'y parvenir. Quoi qu'il lui en coûte.",
+        NULL,
+        "A rédiger",
+        1
+    ), (
+        "PimPim",
+        NULL,
+        "Voleur",
+        "A compléter",
+        NULL,
+        "A rediger",
+        1
+    )

@@ -40,6 +40,11 @@ const SessionManager = require("./SessionManager");
 models.session = new SessionManager();
 models.session.setDatabase(pool);
 
+const PersoManager = require("./PersoManager");
+
+models.perso = new PersoManager();
+models.perso.setDatabase(pool);
+
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 

@@ -29,13 +29,13 @@ const getOneUser = (req, res) => {
     });
 };
 
-const edit = (req, res) => {
-  const item = req.body;
+const updateUser = (req, res) => {
+  const user = req.body;
 
-  item.id = parseInt(req.params.id, 10);
+  user.id = parseInt(req.params.id, 10);
 
   models.user
-    .update(item)
+    .update(user)
     .then(([result]) => {
       if (result.affectedresult === 0) {
         res.sendStatus(404);
@@ -122,7 +122,7 @@ const recoverPassword = (req, res) => {
 module.exports = {
   getUser,
   getOneUser,
-  edit,
+  updateUser,
   createUser,
   destroy,
   verifyToken,
