@@ -29,16 +29,16 @@ VALUES (
         "Notes persos pour les prochaines sessions",
         "https://picsum.photos/800/300",
         0,
-        "https://picsum.photos/100/100",
+        "",
         "$argon2id$v=19$m=65536,t=5,p=1$yEsnwBnRhv95PCKJN073jg$jn6I4sX3ZEej0emtoOqQkzU7GwZF3ujGVMXTWoCHCMg",
         1
     ), (
         "Eric",
-        "test2@test.com",
+        "eric.raffaele@gmail.com",
         "Notes persos pour les prochaines sessions",
         "https://picsum.photos/800/300",
         1,
-        "https://picsum.photos/100/100",
+        "",
         "$argon2id$v=19$m=65536,t=5,p=1$yEsnwBnRhv95PCKJN073jg$jn6I4sX3ZEej0emtoOqQkzU7GwZF3ujGVMXTWoCHCMg",
         1
     ), (
@@ -47,12 +47,12 @@ VALUES (
         "Notes persos pour les prochaines sessions",
         "https://picsum.photos/800/300",
         0,
-        "https://picsum.photos/100/100",
+        "",
         "$argon2id$v=19$m=65536,t=5,p=1$yEsnwBnRhv95PCKJN073jg$jn6I4sX3ZEej0emtoOqQkzU7GwZF3ujGVMXTWoCHCMg",
         1
     ), (
         "Cécile",
-        "test4@test.com",
+        "cilou3109@gmail.com",
         "Notes persos pour les prochaines sessions",
         "https://picsum.photos/800/300",
         0,
@@ -70,7 +70,7 @@ VALUES (
         1
     ), (
         "Noémie",
-        "test6@test.com",
+        "noemiegalyjamou@gmail.com",
         "Notes persos pour les prochaines sessions",
         "https://picsum.photos/800/300",
         0,
@@ -79,7 +79,7 @@ VALUES (
         1
     ), (
         "Seb",
-        "test7test.com",
+        "baas@mailo.com",
         "Notes persos pour les prochaines sessions",
         "https://picsum.photos/800/300",
         0,
@@ -178,17 +178,8 @@ VALUES (
         NULL,
         "Occultiste",
         "Hassess est issu d'une famille ayant passé un pacte avec la créature des profondeurs il y a des générations, engageant le linéage au bon vouloir de la monstruosité. Afin de rompre cette allégence de plusieurs siècles, Hassess s'est lancé sur les routes afin de trouver un moyen d'y parvenir. Quoi qu'il lui en coûte.",
-        NULL,
+        "",
         "A rédiger",
         1,
         "demi orc"
-    ), (
-        "PimPim",
-        NULL,
-        "Voleur",
-        "A compléter",
-        NULL,
-        "A rediger",
-        1,
-        "halfelin"
-    )
+    );
