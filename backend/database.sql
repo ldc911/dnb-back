@@ -158,6 +158,7 @@ CREATE TABLE
         background TEXT,
         avatar VARCHAR(255),
         hauts_faits TEXT,
+        species VARCHAR(255),
         CONSTRAINT persoAuthor FOREIGN KEY (idAuthor) REFERENCES user (id) ON DELETE CASCADE
     ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
 
@@ -169,7 +170,8 @@ INSERT INTO
         background,
         avatar,
         hauts_faits,
-        idAuthor
+        idAuthor,
+        species
     )
 VALUES (
         "Hassess",
@@ -178,7 +180,8 @@ VALUES (
         "Hassess est issu d'une famille ayant passé un pacte avec la créature des profondeurs il y a des générations, engageant le linéage au bon vouloir de la monstruosité. Afin de rompre cette allégence de plusieurs siècles, Hassess s'est lancé sur les routes afin de trouver un moyen d'y parvenir. Quoi qu'il lui en coûte.",
         NULL,
         "A rédiger",
-        1
+        1,
+        "demi orc"
     ), (
         "PimPim",
         NULL,
@@ -186,5 +189,6 @@ VALUES (
         "A compléter",
         NULL,
         "A rediger",
-        1
+        1,
+        "halfelin"
     )

@@ -32,6 +32,9 @@ class PersoManager extends AbstractManager {
     perso.avatar && arr.push({ column: "avatar", value: perso.avatar });
     perso.hauts_faits &&
       arr.push({ column: "hauts_faits", value: perso.hauts_faits });
+    perso.species && perso.species === "null"
+      ? arr.push({ column: "species", value: null })
+      : arr.push({ column: "species", value: perso.species });
 
     const dependencyArray = arr.map(({ value }) => value);
     dependencyArray.push(perso.id);
@@ -56,10 +59,20 @@ class PersoManager extends AbstractManager {
       background,
       avatar,
       hauts_faits,
+      species,
     } = perso;
     return this.database.query(
-      `INSERT INTO ${this.table} (idAuthor, nickname, lastname, classe, background, avatar, hauts_faits) VALUES (?, ?, ?, ?, ?, ?, ?)`,
-      [idAuthor, nickname, lastname, classe, background, avatar, hauts_faits]
+      `INSERT INTO ${this.table} (idAuthor, nickname, lastname, classe, background, avatar, hauts_faits, species) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        idAuthor,
+        nickname,
+        lastname,
+        classe,
+        background,
+        avatar,
+        hauts_faits,
+        species,
+      ]
     );
   }
 }

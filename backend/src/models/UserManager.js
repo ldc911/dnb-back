@@ -68,6 +68,22 @@ class UserManager extends AbstractManager {
       dependencyArray
     );
   }
+
+  updateConnexion(user) {
+    const { firstConnexion, id } = user;
+    return this.database.query(
+      `UPDATE ${this.table} SET firstConnexion = ? WHERE id = ?`,
+      [firstConnexion, id]
+    );
+  }
+
+  updatePassword(user) {
+    const { id, hashedPassword } = user;
+    return this.database.query(
+      `UPDATE ${this.table} SET hashedPassword =? WHERE id =?`,
+      [hashedPassword, id]
+    );
+  }
 }
 
 module.exports = UserManager;

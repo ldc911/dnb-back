@@ -20,7 +20,6 @@ const updatePerso = (req, res) => {
   const perso = req.body;
 
   perso.id = parseInt(req.params.id, 10);
-
   models.perso
     .update(perso)
     .then(([result]) => {

@@ -25,6 +25,32 @@ const hashPassword = (req, res, next) => {
     });
 };
 
+const verifyUser = (req, res, next) => {
+  const id = parseInt(req.params.id, 10);
+  models.user
+    .find(id)
+    .then(([result]) => {
+      if (result.length === 1) {
+        argon2
+          .verify(result[0].hashedPassword, req.body.oldPassword)
+          .then((valid) => {
+            if (valid) {
+              delete req.body.oldPassword;
+              next();
+            } else {
+              res.sendStatus(401);
+            }
+          });
+      } else {
+        res.sendStatus(404);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const verifyPassword = (req, res) => {
   argon2
     .verify(req.user.hashedPassword, req.body.password)
@@ -79,4 +105,5 @@ module.exports = {
   verifyPassword,
   getLostPwdToken,
   verifyToken,
+  verifyUser,
 };

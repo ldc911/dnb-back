@@ -10,7 +10,6 @@ const apiControllers = require("./controllers/apiControllers");
 const middleware = require("./services/middleware");
 const sendMail = require("./services/sendMail");
 const auth = require("./services/auth");
-const uploadControllers = require("./controllers/uploadControllers");
 
 // route login
 router.post("/login", middleware.getUserByEmail, auth.verifyPassword);
@@ -30,12 +29,18 @@ router.put(
   userControllers.recoverPassword
 );
 
-
 // routes user
+router.put("/usersConnexion/:id", userControllers.updateUserConnexion);
 router.get("/users", userControllers.getUser);
 router.get("/users/:id", userControllers.getOneUser);
 router.post("/users", auth.hashPassword, userControllers.createUser);
 router.put("/users/:id", userControllers.updateUser);
+router.put(
+  "/passwordUpdate/:id",
+  auth.verifyUser,
+  auth.hashPassword,
+  userControllers.updatePassword
+);
 
 // routes session
 router.get("/sessions", sessionControllers.getFullSession);
@@ -49,13 +54,6 @@ router.get("/persos/:id", persoControllers.getPerso);
 router.put("/persos/:id", persoControllers.updatePerso);
 router.delete("/persos/:id", persoControllers.deletePerso);
 router.post("/persos", persoControllers.createPerso);
-
-// routes upload
-router.post(
-  "/avatar",
-  uploadControllers.getFile,
-  uploadControllers.convertBase
-);
 
 // route API
 router.get("/spells", apiControllers.getAPI);
