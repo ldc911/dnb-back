@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 const AbstractManager = require("./AbstractManager");
 
 class UserManager extends AbstractManager {
@@ -13,7 +14,7 @@ class UserManager extends AbstractManager {
     );
   }
 
-  updatePassword(user) {
+  addTokenLostPassword(user) {
     const { token, email } = user;
     return this.database.query(
       `UPDATE ${this.table} SET token = ? WHERE email = ?`,
@@ -41,6 +42,46 @@ class UserManager extends AbstractManager {
     return this.database.query(
       `UPDATE ${this.table} SET hashedPassword = ?, token = NULL WHERE token = ? AND email = ?`,
       [hashedPassword, token, email]
+    );
+  }
+
+  update(user) {
+    const arr = [];
+    const initialSql = `UPDATE ${this.table}`;
+
+    user.email && arr.push({ column: "email", value: user.email });
+    user.nickname && arr.push({ column: "nickname", value: user.nickname });
+    user.bio && arr.push({ column: "bio", value: user.bio });
+    user.banPic && arr.push({ column: "banPic", value: user.banPic });
+    user.avatar && arr.push({ column: "avatar", value: user.avatar });
+
+    const dependencyArray = arr.map(({ value }) => value);
+    dependencyArray.push(user.id);
+    return this.database.query(
+      arr.reduce(
+        (sql, { column }, index) =>
+          `${sql} ${index === 0 ? `SET` : `,`} ${column} = ? ${
+            index === arr.length - 1 ? `WHERE id = ?` : ``
+          }`,
+        initialSql
+      ),
+      dependencyArray
+    );
+  }
+
+  updateConnexion(user) {
+    const { firstConnexion, id } = user;
+    return this.database.query(
+      `UPDATE ${this.table} SET firstConnexion = ? WHERE id = ?`,
+      [firstConnexion, id]
+    );
+  }
+
+  updatePassword(user) {
+    const { id, hashedPassword } = user;
+    return this.database.query(
+      `UPDATE ${this.table} SET hashedPassword =? WHERE id =?`,
+      [hashedPassword, id]
     );
   }
 }

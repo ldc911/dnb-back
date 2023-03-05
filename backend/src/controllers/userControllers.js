@@ -20,6 +20,9 @@ const getOneUser = (req, res) => {
       if (result[0] == null) {
         res.sendStatus(404);
       } else {
+        const user = result[0];
+        delete user.hashedPassword;
+        delete user.token;
         res.send(result[0]);
       }
     })
@@ -29,13 +32,50 @@ const getOneUser = (req, res) => {
     });
 };
 
-const edit = (req, res) => {
-  const item = req.body;
+const updateUserConnexion = (req, res) => {
+  const user = req.body;
 
-  item.id = parseInt(req.params.id, 10);
+  user.id = parseInt(req.params.id, 10);
+  models.user
+    .updateConnexion(user)
+    .then(([result]) => {
+      if (result.affectedresult === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const updatePassword = (req, res) => {
+  const user = req.body;
+  user.id = parseInt(req.params.id, 10);
+  models.user
+    .updatePassword(user)
+    .then(([result]) => {
+      if (result.affectedresult === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const updateUser = (req, res) => {
+  const user = req.body;
+
+  user.id = parseInt(req.params.id, 10);
 
   models.user
-    .update(item)
+    .update(user)
     .then(([result]) => {
       if (result.affectedresult === 0) {
         res.sendStatus(404);
@@ -122,9 +162,11 @@ const recoverPassword = (req, res) => {
 module.exports = {
   getUser,
   getOneUser,
-  edit,
+  updateUser,
   createUser,
   destroy,
   verifyToken,
   recoverPassword,
+  updateUserConnexion,
+  updatePassword,
 };

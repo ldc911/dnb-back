@@ -21,7 +21,7 @@ const getUserByEmail = (req, res, next) => {
 const addLostPwdToken = (req, res, next) => {
   const user = req.body;
   models.user
-    .updatePassword(user)
+    .addTokenLostPassword(user)
     .then(() => {
       next();
     })
