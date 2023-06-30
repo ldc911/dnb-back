@@ -31,7 +31,17 @@ const addLostPwdToken = (req, res, next) => {
     });
 };
 
+const verifyUserAccess = (req, res, next) => {
+  const { currentuserid } = req.headers;
+  if (currentuserid === req.params.id) {
+    next();
+  } else {
+    res.status(401).json("Unauthorized");
+  }
+};
+
 module.exports = {
   getUserByEmail,
   addLostPwdToken,
+  verifyUserAccess,
 };

@@ -30,11 +30,19 @@ router.put(
 );
 
 // routes user
-router.put("/usersConnexion/:id", userControllers.updateUserConnexion);
+router.put(
+  "/usersConnexion/:id",
+  middleware.verifyUserAccess,
+  userControllers.updateUserConnexion
+);
 router.get("/users", userControllers.getUser);
 router.get("/users/:id", userControllers.getOneUser);
 router.post("/users", auth.hashPassword, userControllers.createUser);
-router.put("/users/:id", userControllers.updateUser);
+router.put(
+  "/users/:id",
+  middleware.verifyUserAccess,
+  userControllers.updateUser
+);
 router.put(
   "/passwordUpdate/:id",
   auth.verifyUser,

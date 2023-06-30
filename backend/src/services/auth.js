@@ -74,11 +74,12 @@ const verifyPassword = (req, res) => {
     });
 };
 
+// verifier si le token en params est bien encodé ou s'il faut le passer en headers
 const verifyToken = (req, res) => {
   const { token } = req.params;
-  const payload = jwt.decode(token);
+  const validToken = jwt.verify(token, process.env.JWT_SECRET);
   models.user
-    .findByToken(payload)
+    .findByToken(validToken)
     .then(([result]) => {
       if (result.length === 1) {
         res.sendStatus(200);

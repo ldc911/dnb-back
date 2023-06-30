@@ -1,6 +1,6 @@
 const { default: axios } = require("axios");
 
-const getAPI = (req, res) => {
+const getAPI = (_req, res) => {
   axios
     .get("https://api.open5e.com/spells/?format=json")
     .then((result) => {

@@ -37,7 +37,7 @@ const updateSession = (req, res) => {
       if (result.affectedresult === 0) {
         res.sendStatus(404);
       } else {
-        res.sendStatus(204);
+        res.status(204).json({ message: "ok" });
       }
     })
     .catch((err) => {

@@ -96,13 +96,18 @@ CREATE TABLE
         localisation VARCHAR(255) NOT NULL,
         isCampaign VARCHAR(1),
         title VARCHAR(255) NOT NULL,
-        user_meal INT,
+        user_meal VARCHAR(100),
         details_meals TEXT,
-        user_apero INT,
-        user_alcool INT,
-        user_sweets INT,
-        user_dessert INT,
-        user_soft INT
+        user_apero VARCHAR(100),
+        details_apero TEXT,
+        user_alcool VARCHAR(100),
+        details_alcool TEXT,
+        user_sweets VARCHAR(100),
+        details_sweets TEXT,
+        user_dessert VARCHAR(100),
+        details_dessert TEXT,
+        user_soft VARCHAR(100),
+        details_soft TEXT
     ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
 
 INSERT INTO
@@ -126,26 +131,26 @@ VALUES (
         "Chez Naälia",
         "1",
         "Avancée campagne",
-        2,
+        "Eric",
         "Côte de boeuf au barbec",
-        1,
-        4,
-        3,
-        3,
-        5
+        "Laurent",
+        "Noémie",
+        "Seb et Noémie",
+        "Sylvain",
+        "Julien"
     ), (
         '2023-02-11',
         "Après-midi et soirée",
         "Chez Hassess",
         "0",
         "Side quests, sortez les cassos",
-        1,
+        "laurent",
         "Confits de coincoin",
-        2,
-        4,
-        3,
-        5,
-        3
+        "Eric et Cécile",
+        "julien",
+        "noémie",
+        "seb",
+        "sylvain"
     );
 
 CREATE TABLE

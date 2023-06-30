@@ -4,11 +4,7 @@ const getPerso = (req, res) => {
   models.perso
     .findByAuthor(req.params.id)
     .then(([result]) => {
-      if (result.length === 0) {
-        res.sendStatus(404);
-      } else {
-        res.send(result);
-      }
+      res.send(result);
     })
     .catch((err) => {
       console.error(err);

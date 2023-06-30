@@ -37,7 +37,7 @@ const sendMailSession = (session) => {
     },
     (err, info) => {
       if (err) console.error(err);
-      else console.log(info);
+      else console.info(info);
     }
   );
 };
