@@ -1,8 +1,9 @@
 const models = require("../models");
 
-const getPerso = (req, res) => {
-  models.perso
-    .findByAuthor(req.params.id)
+const getHero = (req, res) => {
+  const authorId = req.params.id;
+  models.hero
+    .findByAuthor(authorId)
     .then(([result]) => {
       res.send(result);
     })
@@ -12,12 +13,12 @@ const getPerso = (req, res) => {
     });
 };
 
-const updatePerso = (req, res) => {
-  const perso = req.body;
+const updateHero = (req, res) => {
+  const hero = req.body;
 
-  perso.id = parseInt(req.params.id, 10);
-  models.perso
-    .update(perso)
+  hero.id = parseInt(req.params.id, 10);
+  models.hero
+    .update(hero)
     .then(([result]) => {
       if (result.affectedresult === 0) {
         res.sendStatus(404);
@@ -31,8 +32,8 @@ const updatePerso = (req, res) => {
     });
 };
 
-const deletePerso = (req, res) => {
-  models.perso
+const deleteHero = (req, res) => {
+  models.hero
     .delete(req.params.id)
     .then(([result]) => {
       if (result.affectedresult === 0) {
@@ -47,10 +48,10 @@ const deletePerso = (req, res) => {
     });
 };
 
-const createPerso = (req, res) => {
-  const perso = req.body;
-  models.perso
-    .insert(perso)
+const createHero = (req, res) => {
+  const hero = req.body;
+  models.hero
+    .insert(hero)
     .then(([result]) => {
       res.location(`/persos/${result.insertId}`).sendStatus(201);
     })
@@ -61,8 +62,8 @@ const createPerso = (req, res) => {
 };
 
 module.exports = {
-  getPerso,
-  updatePerso,
-  deletePerso,
-  createPerso,
+  getHero,
+  updateHero,
+  deleteHero,
+  createHero,
 };

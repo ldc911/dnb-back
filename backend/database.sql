@@ -154,7 +154,7 @@ VALUES (
     );
 
 CREATE TABLE
-    perso (
+    hero (
         id INT(11) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
         idAuthor INT(11) UNSIGNED NOT NULL,
         nickname VARCHAR(255),
@@ -168,7 +168,7 @@ CREATE TABLE
     ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
 
 INSERT INTO
-    perso (
+    hero (
         nickname,
         lastname,
         classe,

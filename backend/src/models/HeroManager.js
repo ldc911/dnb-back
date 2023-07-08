@@ -2,9 +2,9 @@
 /* eslint-disable no-unused-expressions */
 const AbstractManager = require("./AbstractManager");
 
-class PersoManager extends AbstractManager {
+class HeroManager extends AbstractManager {
   constructor() {
-    super({ table: "perso" });
+    super({ table: "hero" });
   }
 
   findByAuthor(id) {
@@ -14,30 +14,39 @@ class PersoManager extends AbstractManager {
     );
   }
 
-  update(perso) {
+  findAuthor(id) {
+    return this.database.query(
+      `SELECT u.id AS authorId FROM ${this.table} as p
+        INNER JOIN user as u ON p.idAuthor = u.id
+        WHERE p.id = ?`,
+      [id]
+    );
+  }
+
+  update(hero) {
     const arr = [];
     const initialSql = `UPDATE ${this.table}`;
 
-    perso.nickname && perso.nickname === "null"
+    hero.nickname && hero.nickname === "null"
       ? arr.push({ column: "nickname", value: null })
-      : arr.push({ column: "nickname", value: perso.nickname });
-    perso.lastname && perso.lastname === "null"
+      : arr.push({ column: "nickname", value: hero.nickname });
+    hero.lastname && hero.lastname === "null"
       ? arr.push({ column: "lastname", value: null })
-      : arr.push({ column: "lastname", value: perso.lastname });
-    perso.classe && perso.classe === "null"
+      : arr.push({ column: "lastname", value: hero.lastname });
+    hero.classe && hero.classe === "null"
       ? arr.push({ column: "classe", value: null })
-      : arr.push({ column: "classe", value: perso.classe });
-    perso.background &&
-      arr.push({ column: "background", value: perso.background });
-    perso.avatar && arr.push({ column: "avatar", value: perso.avatar });
-    perso.hauts_faits &&
-      arr.push({ column: "hauts_faits", value: perso.hauts_faits });
-    perso.species && perso.species === "null"
+      : arr.push({ column: "classe", value: hero.classe });
+    hero.background &&
+      arr.push({ column: "background", value: hero.background });
+    hero.avatar && arr.push({ column: "avatar", value: hero.avatar });
+    hero.hauts_faits &&
+      arr.push({ column: "hauts_faits", value: hero.hauts_faits });
+    hero.species && hero.species === "null"
       ? arr.push({ column: "species", value: null })
-      : arr.push({ column: "species", value: perso.species });
+      : arr.push({ column: "species", value: hero.species });
 
     const dependencyArray = arr.map(({ value }) => value);
-    dependencyArray.push(perso.id);
+    dependencyArray.push(hero.id);
     return this.database.query(
       arr.reduce(
         (sql, { column }, index) =>
@@ -50,7 +59,7 @@ class PersoManager extends AbstractManager {
     );
   }
 
-  insert(perso) {
+  insert(hero) {
     const {
       idAuthor,
       nickname,
@@ -60,7 +69,7 @@ class PersoManager extends AbstractManager {
       avatar,
       hauts_faits,
       species,
-    } = perso;
+    } = hero;
     return this.database.query(
       `INSERT INTO ${this.table} (idAuthor, nickname, lastname, classe, background, avatar, hauts_faits, species) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
       [
@@ -77,4 +86,4 @@ class PersoManager extends AbstractManager {
   }
 }
 
-module.exports = PersoManager;
+module.exports = HeroManager;

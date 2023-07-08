@@ -14,8 +14,8 @@ class UserManager extends AbstractManager {
     );
   }
 
-  addTokenLostPassword(user) {
-    const { token, email } = user;
+  addTokenLostPassword(payload) {
+    const { token, email } = payload;
     return this.database.query(
       `UPDATE ${this.table} SET token = ? WHERE email = ?`,
       [token, email]

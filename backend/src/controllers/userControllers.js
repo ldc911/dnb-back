@@ -123,7 +123,6 @@ const verifyToken = (req, res) => {
   const { token } = req.params;
   const plainToken = token.split("-").join(".");
   const payload = jwt.decode(plainToken);
-
   models.user
     .findByToken(payload, plainToken)
     .then(([result]) => {

@@ -15,7 +15,7 @@ const pool = mysql.createPool({
   database: MYSQLDATABASE,
 });
 
-// try a connection
+// Initialization of the connection
 
 pool.getConnection().catch(() => {
   console.warn(
@@ -26,7 +26,7 @@ pool.getConnection().catch(() => {
   );
 });
 
-// declare and fill models: that's where you should register your own managers
+// declaring models and managers
 
 const models = {};
 
@@ -40,10 +40,10 @@ const SessionManager = require("./SessionManager");
 models.session = new SessionManager();
 models.session.setDatabase(pool);
 
-const PersoManager = require("./PersoManager");
+const HeroManager = require("./HeroManager");
 
-models.perso = new PersoManager();
-models.perso.setDatabase(pool);
+models.hero = new HeroManager();
+models.hero.setDatabase(pool);
 
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model

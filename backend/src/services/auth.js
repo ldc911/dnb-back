@@ -96,7 +96,9 @@ const verifyToken = (req, res) => {
 const getLostPwdToken = (req, res, next) => {
   const payload = { sub: req.user.id, email: req.user.email };
 
-  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "15m" });
+  const token = jwt.sign(payload, process.env.JWT_SECRET, {
+    expiresIn: 900000,
+  });
   req.body.token = token;
   next();
 };

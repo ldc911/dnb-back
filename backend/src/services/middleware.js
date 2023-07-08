@@ -19,9 +19,9 @@ const getUserByEmail = (req, res, next) => {
 };
 
 const addLostPwdToken = (req, res, next) => {
-  const user = req.body;
+  const payload = req.body;
   models.user
-    .addTokenLostPassword(user)
+    .addTokenLostPassword(payload)
     .then(() => {
       next();
     })
@@ -40,8 +40,26 @@ const verifyUserAccess = (req, res, next) => {
   }
 };
 
+const verifyHeroAuthor = (req, res, next) => {
+  const { currentuserid } = req.headers;
+  models.hero
+    .findAuthor(req.params.id)
+    .then(([response]) => {
+      if (response[0].authorId === parseInt(currentuserid, 10)) {
+        next();
+      } else {
+        res.sendStatus(403);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   getUserByEmail,
   addLostPwdToken,
   verifyUserAccess,
+  verifyHeroAuthor,
 };

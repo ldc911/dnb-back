@@ -5,7 +5,7 @@ const router = express.Router();
 
 const userControllers = require("./controllers/userControllers");
 const sessionControllers = require("./controllers/sessionControllers");
-const persoControllers = require("./controllers/persoControllers");
+const heroControllers = require("./controllers/heroControllers");
 const apiControllers = require("./controllers/apiControllers");
 const middleware = require("./services/middleware");
 const sendMail = require("./services/sendMail");
@@ -57,11 +57,19 @@ router.post("/sessions", sessionControllers.createSession);
 router.put("/sessions/:id", sessionControllers.updateSession);
 router.delete("/sessions/:id", sessionControllers.deleteSession);
 
-// route perso
-router.get("/persos/:id", persoControllers.getPerso);
-router.put("/persos/:id", persoControllers.updatePerso);
-router.delete("/persos/:id", persoControllers.deletePerso);
-router.post("/persos", persoControllers.createPerso);
+// route hero
+router.get("/persos/:id", heroControllers.getHero);
+router.put(
+  "/persos/:id",
+  middleware.verifyHeroAuthor,
+  heroControllers.updateHero
+);
+router.delete(
+  "/persos/:id",
+  middleware.verifyHeroAuthor,
+  heroControllers.deleteHero
+);
+router.post("/persos", heroControllers.createHero);
 
 // route API
 router.get("/spells", apiControllers.getAPI);
